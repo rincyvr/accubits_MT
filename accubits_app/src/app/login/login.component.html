@@ -1,0 +1,82 @@
+<nav class="navbar navbar-light bg-faded">
+    <h1 class="navbar-brand mb-0">&nbsp;</h1>
+</nav>
+<br>
+<div class="container">
+
+    <div class="card">
+        <div class="card-block" *ngIf = "userRegister">
+            <h4 class="card-title">Sign up</h4>
+            <div>
+                <form [formGroup]="registerForm" novalidate>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input formControlName="name" type="text" class="form-control" placeholder="Enter your name">
+                        <div *ngIf="registerForm.get('name').hasError('required') && registerForm.get('name').touched"
+                            class="form-control-feedback">Please enter your email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input formControlName="email" type="email" class="form-control" placeholder="Enter email">
+                        <div *ngIf="registerForm.get('email').hasError('required') && registerForm.get('email').touched"
+                            class="form-control-feedback">Please enter your email address</div>
+                        <div *ngIf="registerForm.get('email').hasError('email') && registerForm.get('email').touched && !registerForm.get('email').hasError('required')"
+                            class="form-control-feedback">That's not an email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input formControlName="password" type="password" class="form-control" placeholder="Password">
+
+                        <div *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched"
+                            class="form-control-feedback">Password required</div>
+
+                        <div *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched"
+                            class="form-control-feedback">Minimum length is 6 characters. Add more!</div>
+
+
+                    </div>
+
+
+                    <button type="submit" (click)="onSubmit()" [disabled]="!registerForm.valid" class="btn btn-primary">Submit</button>
+
+                    <button type="submit" (click)="onReset()" class="btn">Clear </button>
+
+                </form>
+            </div>
+        </div>
+        <div class="card-block" *ngIf = "!userRegister" >
+            <h4 class="card-title">Login</h4>
+            <div>
+                <form [formGroup]="loginForm" novalidate>
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input formControlName="email" type="email" class="form-control" placeholder="Enter email">
+                        <div *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched"
+                            class="form-control-feedback">Please enter your email address</div>
+                        <div *ngIf="loginForm.get('email').hasError('email') && loginForm.get('email').touched && !loginForm.get('email').hasError('required')"
+                            class="form-control-feedback">That's not an email address</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input formControlName="password" type="password" class="form-control" placeholder="Password">
+
+                        <div *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched"
+                            class="form-control-feedback">Password required</div>
+
+                        <div *ngIf="loginForm.get('password').hasError('minlength') && loginForm.get('password').touched"
+                            class="form-control-feedback">Minimum length is 6 characters. Add more!</div>
+
+
+                    </div>
+
+
+                    <button type="submit" (click)="onLogin()" [disabled]="!loginForm.valid" class="btn btn-primary">Login</button>
+
+                    <button type="submit" (click)="onClear()" class="btn">Clear </button>
+
+                </form>
+            </div>
+        </div>
+        <span *ngIf = "!userRegister">If you are not registered <button (click)="onRegister()">Click here</button></span>
+    </div>
+</div>
